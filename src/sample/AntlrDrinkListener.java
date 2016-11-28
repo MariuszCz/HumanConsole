@@ -1,15 +1,15 @@
 package sample;
 
-import sample.antlr4.DrinkBaseListener;
-import sample.antlr4.DrinkParser;
+import sample.antlr4.ProgramBaseListener;
+import sample.antlr4.ProgramParser;
 
 /**
  * Created by Mariusz on 27.11.2016.
  */
-public class AntlrDrinkListener extends DrinkBaseListener {
+public class AntlrDrinkListener extends ProgramBaseListener {
 
         @Override
-        public void enterDrink(DrinkParser.DrinkContext ctx) {
+        public void enterProgram(ProgramParser.ProgramContext ctx) {
             System.out.println(ctx.getText());
         }
 

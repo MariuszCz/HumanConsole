@@ -7,8 +7,8 @@ import javafx.scene.control.TextField;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import sample.antlr4.DrinkLexer;
-import sample.antlr4.DrinkParser;
+import sample.antlr4.ProgramLexer;
+import sample.antlr4.ProgramParser;
 
 import java.io.IOException;
 
@@ -25,22 +25,23 @@ public class Controller {
     }
     private void printDrink(String drinkSentence) {
         // Get our lexer
-        DrinkLexer lexer = new DrinkLexer(new ANTLRInputStream(drinkSentence));
+        ProgramLexer lexer = new ProgramLexer(new ANTLRInputStream(drinkSentence));
 
         // Get a list of matched tokens
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
         // Pass the tokens to the parser
 
-        DrinkParser parser = new DrinkParser(tokens);
+        ProgramParser parser = new ProgramParser(tokens);
 
         // Specify our entry point
-        DrinkParser.DrinkSentenceContext drinkSentenceContext = parser.drinkSentence();
+        ProgramParser.ProgramContext programSentenceContext = parser.program();
 
+       // System.out.println( "ParseTree:\n" + programSentenceContext.toStringTree( parser ) + "\n");
         // Walk it and attach our listener
         ParseTreeWalker walker = new ParseTreeWalker();
         AntlrDrinkListener listener = new AntlrDrinkListener();
-        walker.walk(listener, drinkSentenceContext);
+        walker.walk(listener, programSentenceContext);
     }
 
 //    private void makeGrammar(String content) {

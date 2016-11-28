@@ -1,16 +1,26 @@
-grammar Drink;
+grammar Program;
 
 // Parser Rules
 
-drinkSentence : ARTICLE? DRINKING_VESSEL OF drink ;
+sentence : (RUN TEXT)+
+         | (RUN TYPE TEXT)+
+         ;
 
-drink : TEXT;
+program : TEXT* RUN TEXT;
+
+
 
 // Lexer Rules
 
 ARTICLE : 'the' | 'an' | 'a' ;
 
 OF : 'of' ;
+
+RUN : 'run' | 'open' | 'launch' | 'start' | 'go' ;
+
+CLOSE : 'close' | 'exit' | 'shut' ;
+
+TYPE : 'application' | 'file' | 'document' | 'app' | 'browser' ;
 
 DRINKING_VESSEL : 'cup' | 'pint' | 'shot' | 'mug' | 'glass' ;
 
