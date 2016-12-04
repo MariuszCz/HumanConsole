@@ -1,41 +1,22 @@
 package sample;
 
+import java.util.List;
+
 /**
  * Created by Mariusz on 04.12.2016.
  */
 public class CommandModel {
-    private String action;
-    private String fileType;
-    private String fileName;
+    private List<ActionModel> actionModels;
 
 
-    public CommandModel(String action, String fileType, String fileName) {
-        this.action = action;
-        this.fileType = fileType;
-        this.fileName = fileName;
+    public CommandModel() {
     }
 
-    public String getAction() {
-        return action;
+    public List<ActionModel> getActionModels() {
+        return actionModels;
     }
 
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    public String getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setActionModels(List<ActionModel> actionModels) {
+        this.actionModels = actionModels;
     }
 }

@@ -30,7 +30,7 @@ public class Controller {
 //        } catch (Exception ex) {
 //         //   System.out.print(ex.getMessage());
 //        }
-        printTree("please run notatnik and close browser chrome");
+        printTree("please run app notatnik fg and close browser chrome");
     }
 
 
@@ -46,13 +46,22 @@ public class Controller {
 
         ProgramParser parser = new ProgramParser(tokens);
 
-        ParseTree connector = parser.connector();
+        ParseTree connector = parser.command();
         AST ast = new AST(connector);
+      //  System.out.print(ast);
 
-        String tree = connector.toStringTree(parser);
-        System.out.print(ast.getChildren().get(2));
+     //   System.out.print(ast.getChildren().get(0).getChildren().get(0).getChildren().get(0).getChildren().get(1).toString());
+        ActionModel actionModel = new ActionModel(ast.getChildren().get(1).toString(),
+                ast.getChildren().get(0).getChildren().get(0).getChildren().get(0).getChildren().get(1).toString(),
+                ast.getChildren().get(0).getChildren().get(0).getChildren().get(1).toString(),
+                ast.getChildren().get(0).getChildren().get(1).toString());
 
-       // System.out.print(pars);
+        System.out.print(actionModel.getConnector());
+        System.out.print(actionModel.getAction());
+        System.out.print(actionModel.getType());
+        System.out.print(actionModel.getName());
+       // CommandModel commandModel = new CommandModel();
+       // System.out.print(ast);
 
 
 //        AntlrListener antlrListener = new AntlrListener();

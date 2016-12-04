@@ -8,9 +8,11 @@ action : someText RUN | someText CLOSE ;
 
 type: action (TYPE)*;
 
-name: type TEXT ;
+name: type TEXT someText ;
 
-connector: name (CONNECTOR_AND)* (name)* | name (CONNECTOR_OR)* (name)* | EOF;
+connector: name (CONNECTOR_AND)* (name)* | name (CONNECTOR_OR)* (name)* ;
+
+command: (connector)*;
 
 CONNECTOR_OR : 'or' | 'either' ;
 

@@ -71,6 +71,18 @@ public class ProgramBaseListener implements ProgramListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitConnector(ProgramParser.ConnectorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCommand(ProgramParser.CommandContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCommand(ProgramParser.CommandContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

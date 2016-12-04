@@ -35,7 +35,9 @@ public class AST {
             parent.children.add(this);
         }
     }
-
+    public int getSize() {
+        return children.size();
+    }
     public Object getPayload() {
         return payload;
     }
@@ -100,8 +102,8 @@ public class AST {
 
                 if (ast.payload instanceof Token) {
                     Token token = (Token) ast.payload;
-                    caption = String.format("TOKEN[type: %s, text: %s]",
-                            token.getType(), token.getText().replace("\n", "\\n"));
+                    caption = String.format("%s",
+                            token.getText().replace("\n", "\\n"));
                 }
                 else {
                     caption = String.valueOf(ast.payload);
@@ -114,7 +116,7 @@ public class AST {
                 }
 
                 builder.append(indent)
-                        .append(childStack.isEmpty() ? "'- " : "|- ")
+                        .append(childStack.isEmpty() ? "" : "|- ")
                         .append(caption)
                         .append("\n");
 
