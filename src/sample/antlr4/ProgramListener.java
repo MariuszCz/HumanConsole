@@ -8,23 +8,53 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface ProgramListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link ProgramParser#sentence}.
+	 * Enter a parse tree produced by {@link ProgramParser#someText}.
 	 * @param ctx the parse tree
 	 */
-	void enterSentence(ProgramParser.SentenceContext ctx);
+	void enterSomeText(ProgramParser.SomeTextContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ProgramParser#sentence}.
+	 * Exit a parse tree produced by {@link ProgramParser#someText}.
 	 * @param ctx the parse tree
 	 */
-	void exitSentence(ProgramParser.SentenceContext ctx);
+	void exitSomeText(ProgramParser.SomeTextContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ProgramParser#program}.
+	 * Enter a parse tree produced by {@link ProgramParser#action}.
 	 * @param ctx the parse tree
 	 */
-	void enterProgram(ProgramParser.ProgramContext ctx);
+	void enterAction(ProgramParser.ActionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ProgramParser#program}.
+	 * Exit a parse tree produced by {@link ProgramParser#action}.
 	 * @param ctx the parse tree
 	 */
-	void exitProgram(ProgramParser.ProgramContext ctx);
+	void exitAction(ProgramParser.ActionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ProgramParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void enterType(ProgramParser.TypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ProgramParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void exitType(ProgramParser.TypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ProgramParser#name}.
+	 * @param ctx the parse tree
+	 */
+	void enterName(ProgramParser.NameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ProgramParser#name}.
+	 * @param ctx the parse tree
+	 */
+	void exitName(ProgramParser.NameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ProgramParser#connector}.
+	 * @param ctx the parse tree
+	 */
+	void enterConnector(ProgramParser.ConnectorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ProgramParser#connector}.
+	 * @param ctx the parse tree
+	 */
+	void exitConnector(ProgramParser.ConnectorContext ctx);
 }

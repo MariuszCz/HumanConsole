@@ -2,19 +2,19 @@ grammar Program;
 
 // Parser Rules
 
-sentence : (RUN TEXT)+
-         | (RUN TYPE TEXT)+
-         ;
+someText: (TEXT)* ;
 
-program : TEXT* RUN TEXT;
+action : someText RUN | someText CLOSE ;
 
+type: action (TYPE)*;
 
+name: type TEXT ;
 
-// Lexer Rules
+connector: name (CONNECTOR_AND)* (name)* | name (CONNECTOR_OR)* (name)* | EOF;
 
-ARTICLE : 'the' | 'an' | 'a' ;
+CONNECTOR_OR : 'or' | 'either' ;
 
-OF : 'of' ;
+CONNECTOR_AND : 'and' | 'next' | 'also' ;
 
 RUN : 'run' | 'open' | 'launch' | 'start' | 'go' ;
 
@@ -22,19 +22,6 @@ CLOSE : 'close' | 'exit' | 'shut' ;
 
 TYPE : 'application' | 'file' | 'document' | 'app' | 'browser' ;
 
-DRINKING_VESSEL : 'cup' | 'pint' | 'shot' | 'mug' | 'glass' ;
-
 TEXT : ('a'..'z')+ ;
 
 WHITESPACE : ( '\t' | ' ' | '\r' | '\n'| '\u000C' )+ -> skip ;
-//command: expr EOF;
-//
-//expr
-//:
-//|RUN
-//|CLOSE
-//;
-//
-//RUN: 'run' | 'open';
-//CLOSE: 'close' | 'dismiss';
-//WS: [ \t\r\n]+ -> skip;
