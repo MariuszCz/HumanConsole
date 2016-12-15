@@ -2,7 +2,6 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -12,25 +11,15 @@ import sample.antlr4.ProgramParser;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.PathMatcher;
 
 public class Controller {
-    @FXML
-    private TextArea output;
 
     @FXML
     private TextField programName;
 
     @FXML
     void runProgram(ActionEvent event) {
-//        try {
-//            runProgramByName(programName.getText());
-//            runProgramFromUrl(programName.getText());
-//        } catch (Exception ex) {
-//         //   System.out.print(ex.getMessage());
-//        }
-        printTree("please run app notatnik fg and close browser chrome");
+        printTree(programName.getText());
     }
 
 
@@ -45,61 +34,46 @@ public class Controller {
         // Pass the tokens to the parser
 
         ProgramParser parser = new ProgramParser(tokens);
+        ParseTree command = parser.command();
+        CommandVisitor visitor = new CommandVisitor();
 
-        ParseTree connector = parser.command();
-        AST ast = new AST(connector);
-      //  System.out.print(ast);
-
-     //   System.out.print(ast.getChildren().get(0).getChildren().get(0).getChildren().get(0).getChildren().get(1).toString());
-        ActionModel actionModel = new ActionModel(ast.getChildren().get(1).toString(),
-                ast.getChildren().get(0).getChildren().get(0).getChildren().get(0).getChildren().get(1).toString(),
-                ast.getChildren().get(0).getChildren().get(0).getChildren().get(1).toString(),
-                ast.getChildren().get(0).getChildren().get(1).toString());
-
-        System.out.print(actionModel.getConnector());
-        System.out.print(actionModel.getAction());
-        System.out.print(actionModel.getType());
-        System.out.print(actionModel.getName());
-       // CommandModel commandModel = new CommandModel();
-       // System.out.print(ast);
-
-
-//        AntlrListener antlrListener = new AntlrListener();
-//        ParseTreeWalker walker = new ParseTreeWalker();
-//        walker.walk(antlrListener,connector);
-
-   ///     String sexpression = toStringTree(connector, Arrays.asList(parser.getRuleNames())).trim();
-
+        AST ast = new AST(command);
+        System.out.print(ast);
+        for(int i=0; i<command.getChildCount();i++) {
+            if (command.getChild(i) != null) {
+                visitor.visit(command.getChild(i));
+            }
+        }
     }
-    private void runProgramByName(String name) {
-        Runtime rs = Runtime.getRuntime();
 
+
+
+    public void searchAndRunProgramByName(String name) {
+        Runtime rs = Runtime.getRuntime();
+System.out.print(name);
         try {
-            rs.exec(name);
-            output.setText(name+" successfully opened!");
+            Process p = Runtime.getRuntime().exec(name);
+            p.waitFor();
+
+           // rs.exec(name);
+          //  rs.wait();
+
         }
         catch (IOException e) {
-            output.setText(e.getMessage());
+            System.out.print(e.getMessage());
+        }
+        catch (InterruptedException ex) {
+            System.out.print(ex.getMessage());
         }
     }
 
-    public void runProgramFromUrl(String name) {
-//        ProcessBuilder p = new ProcessBuilder();
-////dir <Folder Name> /AD /s
-//        try {
-//            p.command("C:\\Users\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe");
-//
-//            p.start();
-//        }
-//        catch (IOException e) {
-//            System.out.println(e);
-//        }
-//        System.out.println("Started EXE");
-        String pattern = name;
-        PathMatcher matcher =
-                FileSystems.getDefault().getPathMatcher("glob:" + pattern);
 
+
+    static String convertStreamToString(java.io.InputStream is) {
+        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+        return s.hasNext() ? s.next() : "";
     }
+
 
     public void findFile(String name,File file)
     {

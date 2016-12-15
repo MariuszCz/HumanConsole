@@ -35,9 +35,7 @@ public class AST {
             parent.children.add(this);
         }
     }
-    public int getSize() {
-        return children.size();
-    }
+
     public Object getPayload() {
         return payload;
     }
@@ -69,7 +67,6 @@ public class AST {
             for (int i = 0; i < tree.getChildCount(); i++) {
 
                 AST temp = new AST(ast, tree.getChild(i));
-
                 if (!(temp.payload instanceof Token)) {
                     walk(tree.getChild(i), temp);
                 }
@@ -103,7 +100,7 @@ public class AST {
                 if (ast.payload instanceof Token) {
                     Token token = (Token) ast.payload;
                     caption = String.format("%s",
-                            token.getText().replace("\n", "\\n"));
+                           token.getText().replace("\n", "\\n"));
                 }
                 else {
                     caption = String.valueOf(ast.payload);
@@ -116,7 +113,7 @@ public class AST {
                 }
 
                 builder.append(indent)
-                        .append(childStack.isEmpty() ? "" : "|- ")
+                        .append(childStack.isEmpty() ? "'- " : "|- ")
                         .append(caption)
                         .append("\n");
 

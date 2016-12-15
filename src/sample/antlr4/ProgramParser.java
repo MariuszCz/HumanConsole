@@ -19,10 +19,9 @@ public class ProgramParser extends Parser {
 	public static final int
 		CONNECTOR_OR=1, CONNECTOR_AND=2, RUN=3, CLOSE=4, TYPE=5, TEXT=6, WHITESPACE=7;
 	public static final int
-		RULE_someText = 0, RULE_action = 1, RULE_type = 2, RULE_name = 3, RULE_connector = 4, 
-		RULE_command = 5;
+		RULE_someText = 0, RULE_action = 1, RULE_type = 2, RULE_name = 3, RULE_command = 4;
 	public static final String[] ruleNames = {
-		"someText", "action", "type", "name", "connector", "command"
+		"someText", "action", "type", "name", "command"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -97,6 +96,11 @@ public class ProgramParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ProgramListener ) ((ProgramListener)listener).exitSomeText(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ProgramVisitor ) return ((ProgramVisitor<? extends T>)visitor).visitSomeText(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final SomeTextContext someText() throws RecognitionException {
@@ -106,19 +110,19 @@ public class ProgramParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(15);
+			setState(13);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(12);
+					setState(10);
 					match(TEXT);
 					}
 					} 
 				}
-				setState(17);
+				setState(15);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 			}
@@ -153,30 +157,35 @@ public class ProgramParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ProgramListener ) ((ProgramListener)listener).exitAction(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ProgramVisitor ) return ((ProgramVisitor<? extends T>)visitor).visitAction(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ActionContext action() throws RecognitionException {
 		ActionContext _localctx = new ActionContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_action);
 		try {
-			setState(24);
+			setState(22);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(18);
+				setState(16);
 				someText();
-				setState(19);
+				setState(17);
 				match(RUN);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(21);
+				setState(19);
 				someText();
-				setState(22);
+				setState(20);
 				match(CLOSE);
 				}
 				break;
@@ -197,10 +206,7 @@ public class ProgramParser extends Parser {
 		public ActionContext action() {
 			return getRuleContext(ActionContext.class,0);
 		}
-		public List<TerminalNode> TYPE() { return getTokens(ProgramParser.TYPE); }
-		public TerminalNode TYPE(int i) {
-			return getToken(ProgramParser.TYPE, i);
-		}
+		public TerminalNode TYPE() { return getToken(ProgramParser.TYPE, 0); }
 		public TypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -213,31 +219,23 @@ public class ProgramParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ProgramListener ) ((ProgramListener)listener).exitType(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ProgramVisitor ) return ((ProgramVisitor<? extends T>)visitor).visitType(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TypeContext type() throws RecognitionException {
 		TypeContext _localctx = new TypeContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_type);
-		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(26);
+			setState(24);
 			action();
-			setState(30);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==TYPE) {
-				{
-				{
-				setState(27);
-				match(TYPE);
-				}
-				}
-				setState(32);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
+			setState(25);
+			match(TYPE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -271,6 +269,11 @@ public class ProgramParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ProgramListener ) ((ProgramListener)listener).exitName(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ProgramVisitor ) return ((ProgramVisitor<? extends T>)visitor).visitName(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final NameContext name() throws RecognitionException {
@@ -279,11 +282,11 @@ public class ProgramParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(33);
+			setState(27);
 			type();
-			setState(34);
+			setState(28);
 			match(TEXT);
-			setState(35);
+			setState(29);
 			someText();
 			}
 		}
@@ -298,137 +301,12 @@ public class ProgramParser extends Parser {
 		return _localctx;
 	}
 
-	public static class ConnectorContext extends ParserRuleContext {
+	public static class CommandContext extends ParserRuleContext {
 		public List<NameContext> name() {
 			return getRuleContexts(NameContext.class);
 		}
 		public NameContext name(int i) {
 			return getRuleContext(NameContext.class,i);
-		}
-		public List<TerminalNode> CONNECTOR_AND() { return getTokens(ProgramParser.CONNECTOR_AND); }
-		public TerminalNode CONNECTOR_AND(int i) {
-			return getToken(ProgramParser.CONNECTOR_AND, i);
-		}
-		public List<TerminalNode> CONNECTOR_OR() { return getTokens(ProgramParser.CONNECTOR_OR); }
-		public TerminalNode CONNECTOR_OR(int i) {
-			return getToken(ProgramParser.CONNECTOR_OR, i);
-		}
-		public ConnectorContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_connector; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ProgramListener ) ((ProgramListener)listener).enterConnector(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ProgramListener ) ((ProgramListener)listener).exitConnector(this);
-		}
-	}
-
-	public final ConnectorContext connector() throws RecognitionException {
-		ConnectorContext _localctx = new ConnectorContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_connector);
-		int _la;
-		try {
-			int _alt;
-			setState(63);
-			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(37);
-				name();
-				setState(41);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				while (_la==CONNECTOR_AND) {
-					{
-					{
-					setState(38);
-					match(CONNECTOR_AND);
-					}
-					}
-					setState(43);
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				}
-				setState(47);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
-				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-					if ( _alt==1 ) {
-						{
-						{
-						setState(44);
-						name();
-						}
-						} 
-					}
-					setState(49);
-					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
-				}
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(50);
-				name();
-				setState(54);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				while (_la==CONNECTOR_OR) {
-					{
-					{
-					setState(51);
-					match(CONNECTOR_OR);
-					}
-					}
-					setState(56);
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				}
-				setState(60);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
-				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-					if ( _alt==1 ) {
-						{
-						{
-						setState(57);
-						name();
-						}
-						} 
-					}
-					setState(62);
-					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
-				}
-				}
-				break;
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class CommandContext extends ParserRuleContext {
-		public List<ConnectorContext> connector() {
-			return getRuleContexts(ConnectorContext.class);
-		}
-		public ConnectorContext connector(int i) {
-			return getRuleContext(ConnectorContext.class,i);
 		}
 		public CommandContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -442,26 +320,31 @@ public class ProgramParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ProgramListener ) ((ProgramListener)listener).exitCommand(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ProgramVisitor ) return ((ProgramVisitor<? extends T>)visitor).visitCommand(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final CommandContext command() throws RecognitionException {
 		CommandContext _localctx = new CommandContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_command);
+		enterRule(_localctx, 8, RULE_command);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(68);
+			setState(34);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << RUN) | (1L << CLOSE) | (1L << TEXT))) != 0)) {
 				{
 				{
-				setState(65);
-				connector();
+				setState(31);
+				name();
 				}
 				}
-				setState(70);
+				setState(36);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -479,25 +362,17 @@ public class ProgramParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\tJ\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\3\2\7\2\20\n\2\f\2\16\2\23\13\2\3\3"+
-		"\3\3\3\3\3\3\3\3\3\3\5\3\33\n\3\3\4\3\4\7\4\37\n\4\f\4\16\4\"\13\4\3\5"+
-		"\3\5\3\5\3\5\3\6\3\6\7\6*\n\6\f\6\16\6-\13\6\3\6\7\6\60\n\6\f\6\16\6\63"+
-		"\13\6\3\6\3\6\7\6\67\n\6\f\6\16\6:\13\6\3\6\7\6=\n\6\f\6\16\6@\13\6\5"+
-		"\6B\n\6\3\7\7\7E\n\7\f\7\16\7H\13\7\3\7\2\2\b\2\4\6\b\n\f\2\2L\2\21\3"+
-		"\2\2\2\4\32\3\2\2\2\6\34\3\2\2\2\b#\3\2\2\2\nA\3\2\2\2\fF\3\2\2\2\16\20"+
-		"\7\b\2\2\17\16\3\2\2\2\20\23\3\2\2\2\21\17\3\2\2\2\21\22\3\2\2\2\22\3"+
-		"\3\2\2\2\23\21\3\2\2\2\24\25\5\2\2\2\25\26\7\5\2\2\26\33\3\2\2\2\27\30"+
-		"\5\2\2\2\30\31\7\6\2\2\31\33\3\2\2\2\32\24\3\2\2\2\32\27\3\2\2\2\33\5"+
-		"\3\2\2\2\34 \5\4\3\2\35\37\7\7\2\2\36\35\3\2\2\2\37\"\3\2\2\2 \36\3\2"+
-		"\2\2 !\3\2\2\2!\7\3\2\2\2\" \3\2\2\2#$\5\6\4\2$%\7\b\2\2%&\5\2\2\2&\t"+
-		"\3\2\2\2\'+\5\b\5\2(*\7\4\2\2)(\3\2\2\2*-\3\2\2\2+)\3\2\2\2+,\3\2\2\2"+
-		",\61\3\2\2\2-+\3\2\2\2.\60\5\b\5\2/.\3\2\2\2\60\63\3\2\2\2\61/\3\2\2\2"+
-		"\61\62\3\2\2\2\62B\3\2\2\2\63\61\3\2\2\2\648\5\b\5\2\65\67\7\3\2\2\66"+
-		"\65\3\2\2\2\67:\3\2\2\28\66\3\2\2\289\3\2\2\29>\3\2\2\2:8\3\2\2\2;=\5"+
-		"\b\5\2<;\3\2\2\2=@\3\2\2\2><\3\2\2\2>?\3\2\2\2?B\3\2\2\2@>\3\2\2\2A\'"+
-		"\3\2\2\2A\64\3\2\2\2B\13\3\2\2\2CE\5\n\6\2DC\3\2\2\2EH\3\2\2\2FD\3\2\2"+
-		"\2FG\3\2\2\2G\r\3\2\2\2HF\3\2\2\2\13\21\32 +\618>AF";
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\t(\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\7\2\16\n\2\f\2\16\2\21\13\2\3\3\3\3\3\3"+
+		"\3\3\3\3\3\3\5\3\31\n\3\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\6\7\6#\n\6\f\6\16"+
+		"\6&\13\6\3\6\2\2\7\2\4\6\b\n\2\2%\2\17\3\2\2\2\4\30\3\2\2\2\6\32\3\2\2"+
+		"\2\b\35\3\2\2\2\n$\3\2\2\2\f\16\7\b\2\2\r\f\3\2\2\2\16\21\3\2\2\2\17\r"+
+		"\3\2\2\2\17\20\3\2\2\2\20\3\3\2\2\2\21\17\3\2\2\2\22\23\5\2\2\2\23\24"+
+		"\7\5\2\2\24\31\3\2\2\2\25\26\5\2\2\2\26\27\7\6\2\2\27\31\3\2\2\2\30\22"+
+		"\3\2\2\2\30\25\3\2\2\2\31\5\3\2\2\2\32\33\5\4\3\2\33\34\7\7\2\2\34\7\3"+
+		"\2\2\2\35\36\5\6\4\2\36\37\7\b\2\2\37 \5\2\2\2 \t\3\2\2\2!#\5\b\5\2\""+
+		"!\3\2\2\2#&\3\2\2\2$\"\3\2\2\2$%\3\2\2\2%\13\3\2\2\2&$\3\2\2\2\5\17\30"+
+		"$";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

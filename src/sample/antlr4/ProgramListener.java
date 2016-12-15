@@ -48,16 +48,6 @@ public interface ProgramListener extends ParseTreeListener {
 	 */
 	void exitName(ProgramParser.NameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ProgramParser#connector}.
-	 * @param ctx the parse tree
-	 */
-	void enterConnector(ProgramParser.ConnectorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ProgramParser#connector}.
-	 * @param ctx the parse tree
-	 */
-	void exitConnector(ProgramParser.ConnectorContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link ProgramParser#command}.
 	 * @param ctx the parse tree
 	 */
