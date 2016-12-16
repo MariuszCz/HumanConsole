@@ -1,0 +1,17 @@
+#JSGF V1.0;
+
+/**
+ * JSGF Grammar for Hello World example
+ */
+
+grammar hello;
+
+public <someText> = (Please | and | next);
+
+public <greet> = (Power Options |Program| Browser | Blue |  Device Manager |Control | Player |task manager | Windows Security Center);
+
+public <command> = ( Open | Close ) (command| calculator |word | access |pad | paint |task manager|Browser );
+
+public <action> = (start | stop ) (excel |photo shop |nero |word pad|fire wall | recognize);
+
+public <net> = (site) (face book | go girl | mail);

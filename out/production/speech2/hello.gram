@@ -1,0 +1,10 @@
+#JSGF V1.0;
+
+grammar hello;
+
+public <command> =  <action> <type> <name>;
+
+<start> = please | and | next | also ;
+<action> = run | open | launch | start | go | search | close | exit | shut | stop | break;
+<type> = application | file | document | app | browser | page | video | film | article;
+<name> =  chrome | java | calc | winrar | mspaint | wp | google | christmas;
