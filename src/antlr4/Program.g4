@@ -20,9 +20,9 @@ CONNECTOR_AND : 'and' | 'next' | 'also' ;
 
 RUN : 'run' | 'open' | 'launch' | 'start' | 'go' | 'search' ;
 
-CLOSE : 'close' | 'exit' | 'shut' | 'stop' ;
+CLOSE : 'close' | 'exit' | 'shut' | 'stop' | 'break';
 
-TYPE : 'application' | 'file' | 'document' | 'app' | 'browser' | 'page' |'www' | 'video' | 'film' | 'article' ;
+TYPE : 'application' | 'file' | 'document' | 'app' | 'browser' | 'page' |'www' | 'video' | 'film' | 'article' | 'program';
 
 TEXT : ('A'..'Z'|'a'..'z'|[.])+ ;
 

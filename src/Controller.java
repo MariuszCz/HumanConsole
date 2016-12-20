@@ -25,11 +25,7 @@ public class Controller {
 
     @FXML
     void stopSpeech(ActionEvent event) {
-        try {
             speech.stop();
-        } catch (Exception ex) {
-            System.out.print(ex.getMessage());
-        }
     }
 
     @FXML
@@ -59,54 +55,34 @@ public class Controller {
             }
         }
     }
+
     public class SpeechThread extends Thread {
         private ConfigurationManager cm;
-        private  Recognizer recognizer;
+        private Recognizer recognizer;
+
         public void run() {
             getTextFromSpeech();
         }
 
         private void getTextFromSpeech() {
-
-            cm = new ConfigurationManager(HelloWorld.class.getResource("helloworld.config.xml"));
-            recognizer = (Recognizer) cm.lookup("recognizer");
-            recognizer.allocate();
-            Microphone microphone = (Microphone) cm.lookup("microphone");
-            if (!microphone.startRecording()) {
-                System.out.println("Cannot start microphone.");
-                recognizer.deallocate();
-               // System.exit(1);
-            }
-            Result result;
-             while ((result = recognizer.recognize()) != null) {
-                System.out.format("Hypothesis: %s\n", result.getBestFinalResultNoFiller());
-                printTree(result.getBestResultNoFiller());
-                programCommand.setText(result.getBestFinalResultNoFiller());
+            try {
+                System.out.print("Started listening");
+                cm = new ConfigurationManager(Controller.class.getResource("helloworld.config.xml"));
+                recognizer = (Recognizer) cm.lookup("recognizer");
+                recognizer.allocate();
+                Microphone microphone = (Microphone) cm.lookup("microphone");
+                if (!microphone.startRecording()) {
+                    System.out.println("Cannot start microphone.");
+                    recognizer.deallocate();
+                }
+                Result result;
+                while ((result = recognizer.recognize()) != null) {
+                    printTree(result.getBestResultNoFiller());
+                    programCommand.setText(result.getBestFinalResultNoFiller());
+                }
+            } catch (IllegalMonitorStateException ex) {
+                System.out.print("Stopped!");
             }
         }
-        // }
-
-//        while (true) {
-//            while (true) {
-//                System.out.println("Start speaking. Press Ctrl-C to quit.\n");
-//                Result result = recognizer.recognize();
-//                if (result != null) {
-//                    String resultText = result.getBestFinalResultNoFiller();
-//                    System.out.println("You said: " + resultText + '\n');
-//                    printTree(resultText);
-//                } else {
-//                    System.out.println("I can\'t hear what you said.\n");
-//                }
-//            }
-//        }
     }
-
-
-
-
-    static String convertStreamToString(java.io.InputStream is) {
-        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-        return s.hasNext() ? s.next() : "";
-    }
-
 }

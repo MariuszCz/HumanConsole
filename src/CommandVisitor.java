@@ -33,25 +33,6 @@ public class CommandVisitor extends ProgramBaseVisitor<String> {
         return "";
     }
 
-    //    @Override
-//    public String visitConnector(ProgramParser.ConnectorContext ctx){
-//      try {
-//          if (ctx.CONNECTOR_OR() != null || ctx.CONNECTOR_AND()!=null) {
-//              actionModel.setConnector(ctx.CONNECTOR_OR().get(0).getText());
-//              if(ctx.name(0)!=null){
-//              visitName(ctx.name(0));}
-//              return ctx.CONNECTOR_OR().get(0).getText();
-//          } else {
-//              actionModel.setConnector(ctx.CONNECTOR_AND().get(0).getText());
-//
-//              return ctx.CONNECTOR_AND().get(0).getText();
-//          }
-//      } catch (Exception ex) {
-//
-//      }
-//        visitName(ctx.name(0));
-//      return "";
-//    }
     @Override
     public String visitType(ProgramParser.TypeContext ctx) {
         try {
@@ -142,6 +123,7 @@ public class CommandVisitor extends ProgramBaseVisitor<String> {
         } else {
             String command = "cmd /c start " + name;
             runProgramByName(command);
+
         }
     }
 
@@ -166,6 +148,7 @@ public class CommandVisitor extends ProgramBaseVisitor<String> {
         String command = "cmd /c taskkill /IM "+name+".exe";
         runProgramByName(command);
     }
+
     public void runProgramByName(String name) {
         Runtime rs = Runtime.getRuntime();
 
@@ -177,4 +160,5 @@ public class CommandVisitor extends ProgramBaseVisitor<String> {
             System.out.print(e.getMessage());
         }
     }
+
 }
